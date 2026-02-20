@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * *'  # 每天0点自动触发
 
 env:
-  TOOLCHAIN_URL: https://github.com/penosext/Cloudpan/releases/download/toolchains/armv7-eabihf--glibc--stable-2024.02-1.tar.bz2
+  TOOLCHAIN_URL: https://toolchains.bootlin.com/downloads/releases/toolchains/armv7-eabihf/tarballs/armv7-eabihf--glibc--stable-2023.08-1.tar.bz2
   VERSIONINFO_URL: https://github.com/penosext/Cloudpan/releases/download/PenX5/X5versionInfo.tar.gz
   DEVICE: x5
 
