@@ -29,10 +29,10 @@ jobs:
           npm install -g pnpm@latest-10
           pnpm install --verbose -C ./ui
           mkdir -p ./jsapi/toolchains
-          wget -q ${{ env.TOOLCHAIN_URL }} -O ./jsapi/toolchains/armv7-eabihf--uclibc--bleeding-edge-2018.11-1.tar.bz2
-          tar -xjf ./jsapi/toolchains/armv7-eabihf--uclibc--bleeding-edge-2018.11-1.tar.bz2 -C ./jsapi/toolchains
+          wget -q ${{ env.TOOLCHAIN_URL }} -O ./jsapi/toolchains/aarch64--glibc--stable-2018.11-1.tar.bz2
+          tar -xjf ./jsapi/toolchains/aarch64--glibc--stable-2018.11-1.tar.bz2 -C ./jsapi/toolchains
           wget -q ${{ env.VERSIONINFO_URL }}
-          tar -xf A6PversionInfo.tar.gz -C ./jsapi
+          tar -xf versionInfo_p5.tar.gz -C ./jsapi
 
       - name: Build
         run: |
