@@ -5,7 +5,6 @@
     "about": "pages/about/about.vue",
     "shell": "pages/shell/shell.vue",
     "store": "pages/store/store.vue",
-    "softKeyboard": "pages/softKeyboard/softKeyboard.vue",
     "misc": "pages/misc/misc.vue",
     "deviceinfo": "pages/deviceinfo/deviceinfo.vue"
   },

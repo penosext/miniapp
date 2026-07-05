@@ -15,15 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with miniapp.  If not, see <https://www.gnu.org/licenses/>.
 
-import * as langningchen from './langningchen';
-
-export declare class IME {
-    static initialize(): Promise<void>;
-    static getCandidates(rawPinyin: string): langningchen.Candidate[];
-    static updateWordFrequency(pinyin: langningchen.Pinyin, hanZi: string): void;
-    static splitPinyin(rawPinyin: string): langningchen.Pinyin;
-}
-
 export declare class ScanInput {
     static initialize(): Promise<void>;
     static deinitialize(): Promise<void>;

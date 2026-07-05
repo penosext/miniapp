@@ -16,7 +16,7 @@
 // along with miniapp.  If not, see <https://www.gnu.org/licenses/>.
 
 import { defineComponent } from 'vue';
-import { openSoftKeyboard } from '../../utils/softKeyboardUtils';
+import { promptSystemKeyboard } from '../../utils/systemKeyboardUtils';
 import { Shell } from 'langningchen';
 
 // 在顶部添加导入（如果不存在）
@@ -437,7 +437,7 @@ vi <文件>     编辑文本文件 (使用内置编辑器)
     
     // 打开软键盘
     openKeyboard() {
-      openSoftKeyboard(
+      promptSystemKeyboard(
         () => this.inputText,
         (value) => {
           this.inputText = value;

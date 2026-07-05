@@ -15,8 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with miniapp.  If not, see <https://www.gnu.org/licenses/>.
 
-import { openSoftKeyboard } from './softKeyboardUtils';
-
 let globalModule: any = null;
 
 function getGlobalModule(): any {
@@ -31,60 +29,51 @@ function getGlobalModule(): any {
     return globalModule;
 }
 
-export function isSystemKeyboardAvailable(): boolean {
-    const gm = getGlobalModule();
-    return !!(gm && typeof gm.startTextEdit === 'function');
-}
-
 export function promptSystemKeyboard(
     get: () => string,
     set: (value: string) => void
 ) {
     const gm = getGlobalModule();
+    if (!gm || typeof gm.startTextEdit !== 'function') return;
 
-    if (gm && typeof gm.startTextEdit === 'function') {
-        const currentText = get();
-        const config = {
-            text: currentText || '',
-            placeholder: '输入文字...',
-            placeholderColor: '#878A99',
-            autofocus: true,
-            maxlength: -1,
-            showCursor: true,
-            cursorColor: '#0a84ff',
-            cursorSize: 2,
-            confirmButtonDisabledOnTextEmpty: false,
-            inputType: 'EnUSPreferred',
-            multiLinesEditVisible: false,
-            capsLockSwitchOn: false,
-            enterButtonText: '确认'
-        };
-        const uuid = gm.startTextEdit(JSON.stringify(config));
+    const currentText = get();
+    const config = {
+        text: currentText || '',
+        placeholder: '输入文字...',
+        placeholderColor: '#878A99',
+        autofocus: true,
+        maxlength: -1,
+        showCursor: true,
+        cursorColor: '#0a84ff',
+        cursorSize: 2,
+        confirmButtonDisabledOnTextEmpty: false,
+        inputType: 'EnUSPreferred',
+        multiLinesEditVisible: false,
+        capsLockSwitchOn: false,
+        enterButtonText: '确认'
+    };
+    const uuid = gm.startTextEdit(JSON.stringify(config));
 
-        if (typeof uuid === 'string' && uuid.length > 0) {
-            const handler = (retUuid: string, jsonData: string) => {
-                if (retUuid !== uuid) return;
-                try {
-                    const result = JSON.parse(jsonData);
-                    if (result.editConfirmed) {
-                        const text = (result.text || '');
-                        if (gm.closeTextEdit) {
-                            gm.closeTextEdit(uuid);
-                        }
-                        if (gm.textEditFinished) {
-                            gm.textEditFinished.off(handler);
-                        }
-                        set(text);
+    if (typeof uuid === 'string' && uuid.length > 0) {
+        const handler = (retUuid: string, jsonData: string) => {
+            if (retUuid !== uuid) return;
+            try {
+                const result = JSON.parse(jsonData);
+                if (result.editConfirmed) {
+                    const text = (result.text || '');
+                    if (gm.closeTextEdit) {
+                        gm.closeTextEdit(uuid);
                     }
-                } catch (_) {}
-            };
+                    if (gm.textEditFinished) {
+                        gm.textEditFinished.off(handler);
+                    }
+                    set(text);
+                }
+            } catch (_) {}
+        };
 
-            if (gm.textEditFinished) {
-                gm.textEditFinished.on(handler);
-            }
-            return;
+        if (gm.textEditFinished) {
+            gm.textEditFinished.on(handler);
         }
     }
-
-    openSoftKeyboard(get, set);
 }
