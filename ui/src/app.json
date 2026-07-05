@@ -1,17 +1,11 @@
 {
   "pages": {
     "index": "pages/index/index.vue",
-    "ai": "pages/ai/ai.vue",
     "update": "pages/update/update.vue",
     "about": "pages/about/about.vue",
     "shell": "pages/shell/shell.vue",
     "store": "pages/store/store.vue",
     "softKeyboard": "pages/softKeyboard/softKeyboard.vue",
-    "aiSettings": "pages/aiSettings/aiSettings.vue",
-    "aiHistory": "pages/aiHistory/aiHistory.vue",
-    "aiNav": "pages/aiNav/aiNav.vue",
-    "fileManager": "pages/fileManager/fileManager.vue",
-    "fileEditor": "pages/fileEditor/fileEditor.vue",
     "misc": "pages/misc/misc.vue",
     "deviceinfo": "pages/deviceinfo/deviceinfo.vue"
   },

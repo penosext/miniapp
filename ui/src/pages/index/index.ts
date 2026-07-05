@@ -27,9 +27,6 @@ const index = defineComponent({
     },
     
     methods: {
-        openAi() {
-            $falcon.navTo("ai", {});
-        },
         PenTerm() {
             $falcon.navTo("shell", {});
         },
@@ -41,12 +38,6 @@ const index = defineComponent({
         },
         Deviceinfo() {
             $falcon.navTo("deviceinfo", {});
-        },
-        FileEditor() {
-            $falcon.navTo("fileEditor", {});
-        },
-        FileManager() {
-            $falcon.navTo("fileManager", {});
         },
         About() {
             $falcon.navTo("about", {});
