@@ -280,8 +280,22 @@ const store = defineComponent({
         // --- 搜索 ---
         enterSearchMode() {
             this.searchMode = true;
-            this.keyword = '';
             this.showDetailPanel = false;
+            const self = this;
+            setTimeout(() => {
+                openSoftKeyboard(
+                    () => '',
+                    (value) => {
+                        const kw = (value || '').trim();
+                        self.keyword = kw;
+                        self.$forceUpdate();
+                        if (kw) self.doSearch(kw);
+                    }
+                );
+            }, 150);
+        },
+
+        openSearchKeyboard() {
             const self = this;
             setTimeout(() => {
                 openSoftKeyboard(
@@ -289,9 +303,7 @@ const store = defineComponent({
                     (value) => {
                         self.keyword = value;
                         self.$forceUpdate();
-                        if (value.trim()) {
-                            self.doSearch(value.trim());
-                        }
+                        if (value.trim()) self.doSearch(value.trim());
                     }
                 );
             }, 150);

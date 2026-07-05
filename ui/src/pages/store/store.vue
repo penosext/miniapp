@@ -87,7 +87,7 @@
                     <text class="search-back-txt">&lt; 返回</text>
                 </div>
                 <div class="search-input-wrap">
-                    <text class="search-input-text" @click="enterSearchMode">{{keyword || '输入关键词搜索'}}</text>
+                    <text class="search-input-text" @click="openSearchKeyboard">{{keyword || '输入关键词搜索'}}</text>
                 </div>
             </div>
 
