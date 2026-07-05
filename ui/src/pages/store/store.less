@@ -1,0 +1,299 @@
+@import url('../../styles/section.less');
+
+/* 卡片 */
+.info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background-color: #111111;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 状态行 */
+.status-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.status-label {
+    font-size: 14px;
+    color: #888888;
+}
+
+.status-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #17a2b8;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 90px;
+}
+
+/* 版本 / 信息行 */
+.version-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    padding: 6px 0;
+}
+
+.version-label {
+    font-size: 14px;
+    color: #888888;
+    min-width: 80px;
+}
+
+.version-text {
+    font-size: 14px;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #222222;
+    flex: 1;
+    word-wrap: break-word;
+}
+
+/* 搜索栏 */
+.search-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    height: 40px;
+    line-height: 40px;
+    background-color: #111111;
+    color: #cccccc;
+    border: 1px solid #444444;
+    border-radius: 10px;
+    padding: 0 12px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.search-btn {
+    width: 70px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #007acc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:active {
+    background-color: #005a99;
+}
+
+.search-btn-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.clear-search {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+.clear-search-text {
+    font-size: 13px;
+    color: #17a2b8;
+}
+
+/* 软件列表项 */
+.app-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: #111111;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #333333;
+}
+
+.app-item:active {
+    background-color: #1a1a1a;
+    opacity: 0.85;
+}
+
+.app-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: #222222;
+}
+
+.app-icon-placeholder,
+.detail-icon-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-icon-placeholder {
+    width: 64px;
+    height: 64px;
+}
+
+.app-icon-placeholder-text {
+    font-size: 12px;
+    color: #888888;
+}
+
+.app-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.app-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.app-version {
+    font-size: 12px;
+    color: #28a745;
+}
+
+.app-desc {
+    font-size: 12px;
+    color: #888888;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* 详情视图 */
+.detail-header {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+.back-text {
+    font-size: 16px;
+    color: #17a2b8;
+}
+
+.detail-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.detail-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background-color: #222222;
+}
+
+.detail-title-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.detail-version {
+    font-size: 14px;
+    color: #28a745;
+}
+
+/* 按钮 */
+.action-btn {
+    height: 40px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #007acc;
+    color: #ffffff;
+}
+
+.action-btn:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+
+.action-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: #6c757d;
+}
+
+.main-btn {
+    background-color: #007acc;
+}
+
+.install-btn {
+    background-color: #28a745;
+}
+
+.install-btn:active {
+    background-color: #218838;
+}
+
+/* 文本内容 */
+.release-content {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 20px;
+    white-space: pre-line;
+}
+
+.empty-text {
+    font-size: 14px;
+    color: #888888;
+    text-align: center;
+    padding: 10px;
+}
+
+.error-text {
+    font-size: 14px;
+    color: #ff6b6b;
+    text-align: center;
+    padding: 10px;
+}

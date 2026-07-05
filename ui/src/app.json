@@ -5,6 +5,7 @@
     "update": "pages/update/update.vue",
     "about": "pages/about/about.vue",
     "shell": "pages/shell/shell.vue",
+    "store": "pages/store/store.vue",
     "softKeyboard": "pages/softKeyboard/softKeyboard.vue",
     "aiSettings": "pages/aiSettings/aiSettings.vue",
     "aiHistory": "pages/aiHistory/aiHistory.vue",
