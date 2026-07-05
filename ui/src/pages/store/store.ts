@@ -362,6 +362,29 @@ const store = defineComponent({
             }
         },
 
+        // --- 下载进度轮询 ---
+        async updateDlProgress(downloadPath: string, totalSize: number) {
+            if (!Shell || !this.dlActive) return;
+            try {
+                const checkCmd = `test -f "${downloadPath}" && wc -c < "${downloadPath}" || echo 0`;
+                const result = await Shell.exec(checkCmd);
+                const currentSize = parseInt((result || '').trim()) || 0;
+
+                if (totalSize > 0 && currentSize > 0) {
+                    const pct = Math.min(99, Math.round((currentSize / totalSize) * 100));
+                    this.dlProgress = pct;
+                    this.dlProgressText = `${this.formatSize(currentSize)} / ${this.formatSize(totalSize)} (${pct}%)`;
+                } else {
+                    this.dlProgressText = `已下载 ${this.formatSize(currentSize)}...`;
+                }
+
+                if (currentSize >= totalSize && totalSize > 0) {
+                    this.dlProgress = 100;
+                    this.dlProgressText = '下载完成，正在安装...';
+                }
+            } catch (e) { /* ignore poll errors */ }
+        },
+
         // --- 下载安装 ---
         async onDownload() {
             const app = this.currentApp;
@@ -382,26 +405,30 @@ const store = defineComponent({
                 : `${STORE_BASE_URL}/api/device/software/download?sku=${this.encode(this.sku)}&appid=${this.encode(appid)}`;
 
             const downloadPath = `/userdisk/store_${appid}_${Date.now()}.amr`;
+            const totalSize = this.currentAppDetail?.size || 0;
 
             this.dlActive = true;
             this.dlProgress = 0;
-            this.dlProgressText = '准备下载...';
+            this.dlProgressText = totalSize > 0
+                ? `0 / ${this.formatSize(totalSize)} (0%)`
+                : '准备下载...';
+
+            // 启动进度轮询
+            if (this.dlTimer) clearInterval(this.dlTimer);
+            this.dlTimer = setInterval(() => {
+                this.updateDlProgress(downloadPath, totalSize);
+            }, 800);
 
             try {
-                const totalSize = this.currentAppDetail?.size || 0;
-                try {
-                    if (totalSize > 0) {
-                        const progressCmd = `curl -s -k -L -# "${downloadUrl}" -o "${downloadPath}" 2>&1`;
-                        showInfo(`正在下载 ${appName}...`);
-                        await Shell.exec(progressCmd);
-                    } else {
-                        const downloadCmd = `curl -s -k -L "${downloadUrl}" -o "${downloadPath}"`;
-                        showInfo(`正在下载 ${appName}...`);
-                        await Shell.exec(downloadCmd);
-                    }
-                } catch (e) { /* curl -# 可能输出导致错误，忽略 */ }
+                const downloadCmd = `curl -s -k -L "${downloadUrl}" -o "${downloadPath}"`;
+                showInfo(`正在下载 ${appName}...`);
+                await Shell.exec(downloadCmd);
 
+                // 等待文件完全写入
                 await new Promise(resolve => setTimeout(resolve, 500));
+
+                // 停止轮询
+                if (this.dlTimer) { clearInterval(this.dlTimer); this.dlTimer = null; }
 
                 const sizeCmd = `test -f "${downloadPath}" && wc -c < "${downloadPath}" || echo 0`;
                 const fileSize = parseInt((await Shell.exec(sizeCmd)).trim()) || 0;
@@ -416,7 +443,6 @@ const store = defineComponent({
                 const installCmd = `miniapp_cli install "${downloadPath}"`;
                 await Shell.exec(installCmd);
 
-                // 记录已安装
                 const id = String(appid);
                 if (this.installedIds.indexOf(id) < 0) {
                     this.installedIds.push(id);
@@ -425,7 +451,6 @@ const store = defineComponent({
 
                 showSuccess(`${appName} 安装完成`);
 
-                // 清理
                 setTimeout(async () => {
                     try { await Shell.exec(`rm -f "${downloadPath}"`); } catch (e) { /* ignore */ }
                 }, 3000);
@@ -436,6 +461,7 @@ const store = defineComponent({
                 showError('安装失败: ' + (error.message || '未知错误'));
                 this.dlActive = false;
                 this.dlProgress = 0;
+                if (this.dlTimer) { clearInterval(this.dlTimer); this.dlTimer = null; }
             }
         },
 

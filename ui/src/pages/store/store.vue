@@ -131,6 +131,9 @@
 
                     <div class="detail-actions">
                         <div v-if="dlActive" class="detail-dl-wrap">
+                            <div class="progress-bar-out">
+                                <div class="progress-bar-in" :style="'width:' + dlProgress + '%'"></div>
+                            </div>
                             <text class="detail-dl-text">{{dlProgressText || '下载中...'}}</text>
                         </div>
                         <div v-if="!dlActive && !isInstalled" class="detail-btn install-btn" @click="onDownload">
