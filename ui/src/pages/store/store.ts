@@ -19,7 +19,6 @@ import { defineComponent } from 'vue';
 import { Shell } from 'langningchen';
 import { showError, showSuccess, showInfo, showWarning } from '../../components/ToastMessage';
 import { hideLoading, showLoading } from '../../components/Loading';
-import { openSoftKeyboard } from '../../utils/softKeyboardUtils';
 
 export type StoreOptions = {};
 
@@ -73,6 +72,7 @@ const store = defineComponent({
             searchMode: false,
             keyword: '',
             searchResults: [] as SoftwareItem[],
+            _searchTimer: null as any,
 
             // 列表数据
             allApps: [] as SoftwareItem[],
@@ -114,6 +114,10 @@ const store = defineComponent({
         if (this.dlTimer) {
             clearInterval(this.dlTimer);
             this.dlTimer = null;
+        }
+        if (this._searchTimer) {
+            clearTimeout(this._searchTimer);
+            this._searchTimer = null;
         }
     },
 
@@ -281,38 +285,33 @@ const store = defineComponent({
         enterSearchMode() {
             this.searchMode = true;
             this.showDetailPanel = false;
-            const self = this;
-            setTimeout(() => {
-                openSoftKeyboard(
-                    () => '',
-                    (value) => {
-                        const kw = (value || '').trim();
-                        self.keyword = kw;
-                        self.$forceUpdate();
-                        if (kw) self.doSearch(kw);
-                    }
-                );
-            }, 150);
         },
 
-        openSearchKeyboard() {
-            const self = this;
-            setTimeout(() => {
-                openSoftKeyboard(
-                    () => self.keyword,
-                    (value) => {
-                        self.keyword = value;
-                        self.$forceUpdate();
-                        if (value.trim()) self.doSearch(value.trim());
-                    }
-                );
-            }, 150);
+        onKeywordInput(e: any) {
+            let value = '';
+            if (typeof e === 'string') {
+                value = e;
+            } else if (e && typeof e.value === 'string') {
+                value = e.value;
+            } else if (e && e.target && typeof e.target.value === 'string') {
+                value = e.target.value;
+            } else {
+                try { value = String(e || ''); } catch (_) { }
+            }
+            this.keyword = value.trim();
+            if (this._searchTimer) clearTimeout(this._searchTimer);
+            if (this.keyword) {
+                this._searchTimer = setTimeout(() => {
+                    this.doSearch(this.keyword);
+                }, 400);
+            }
         },
 
         exitSearchMode() {
             this.searchMode = false;
             this.keyword = '';
             this.searchResults = [];
+            if (this._searchTimer) { clearTimeout(this._searchTimer); this._searchTimer = null; }
         },
 
         async doSearch(kw: string) {
