@@ -53,7 +53,7 @@ const KNOWN_PARTITIONS = [
     'logo', 'trust', 'frp',
 ];
 
-const BACKUP_DIR = '/userdisk/backup';
+const BACKUP_DIR = '/userdisk/paper/image';
 const IMAGE_DIRS = ['/userdisk/paper/image', '/userdisk/backup'];
 const AMR_DIR = '/userdisk/paper';
 const SYS_CONFIG_PATH = '/userdata/cfg/sys_config.conf';

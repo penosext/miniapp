@@ -47,7 +47,7 @@
     <div class="section">
         <text class="section-title">备份分区</text>
         <div class="info-card">
-            <text class="card-hint">选择要备份的分区，镜像将保存到 /userdisk/backup/</text>
+            <text class="card-hint">选择要备份的分区，镜像将保存到 /userdisk/paper/image/</text>
 
             <!-- 分区列表 -->
             <div class="partition-grid" v-if="partitions.length > 0">
@@ -95,7 +95,7 @@
                     <text class="image-type">{{ img.type }}</text>
                 </div>
             </div>
-            <text v-else-if="!imagesLoading" class="empty-text">暂无镜像文件 (从 /userdisk/backup/ 或 /userdisk/paper/image/ 读取)</text>
+            <text v-else-if="!imagesLoading" class="empty-text">暂无镜像文件 (将 .img 放入 /userdisk/paper/image/)</text>
 
             <div v-if="flashRunning" class="progress-text flash-warning">
                 <text>{{ flashProgress }}</text>
