@@ -91,6 +91,11 @@ const backup = defineComponent({
 
             // 系统工具
             toolRunning: '',
+
+            // 刷机结果弹窗
+            flashResultVisible: false,
+            flashResultMessage: '',
+            flashResultTargetSlot: '',
         };
     },
 
@@ -136,13 +141,9 @@ const backup = defineComponent({
             if (!img) return '';
             return this.getTargetPartition(img.name);
         },
-        // 是否显示槽位选择（文件名不含 _a/_b 时显示）
-        flashImageHasSlot(): boolean {
-            if (!this.flashSelectedImage) return true;
-            const img = this.images.find(i => i.path === this.flashSelectedImage);
-            if (!img) return true;
-            const base = img.name.replace(/\.img$/i, '');
-            return !(base.endsWith('_a') || base.endsWith('_b'));
+        // 槽位是否需警告（当前运行槽位）
+        flashSlotWarning(): boolean {
+            return this.flashTargetSlot === this.currentSlot;
         },
     },
 
@@ -381,15 +382,19 @@ const backup = defineComponent({
 
                 showSuccess(`${targetPart} 刷入完成`);
 
-                // 如果是系统分区，询问是否切换到刷入的槽位
+                // 显示结果弹窗
+                this.flashResultTargetSlot = this.flashTargetSlot;
                 if (targetPart.includes('system') || targetPart.includes('rootfs')) {
                     if (this.flashTargetSlot !== this.currentSlot) {
-                        this.askSlotSwitch();
+                        this.flashResultMessage = `${targetPart} 刷入到 ${targetSlotLabel}\n当前运行为 ${this.currentSlotDisplay}\n\n是否切换槽位并重启？`;
+                        this.flashResultVisible = true;
                     } else {
-                        this.askReboot();
+                        this.flashResultMessage = `${targetPart} 刷入到 ${targetSlotLabel} (当前运行槽位)\n\n建议重启以加载新镜像`;
+                        this.flashResultVisible = true;
                     }
                 } else {
-                    this.askReboot();
+                    this.flashResultMessage = `${targetPart} 刷入完成\n\n是否重启设备？`;
+                    this.flashResultVisible = true;
                 }
             } catch (error: any) {
                 showError('刷机失败: ' + (error.message || ''));
@@ -400,13 +405,33 @@ const backup = defineComponent({
             }
         },
 
-        async askSlotSwitch() {
-            // 使用简单的确认提示
-            showInfo('刷写系统分区完成，建议切换槽位后重启');
+        dismissFlashResult() {
+            this.flashResultVisible = false;
         },
 
-        async askReboot() {
-            showInfo('刷机完成，建议重启系统');
+        async confirmSlotSwitchReboot() {
+            this.flashResultVisible = false;
+            try {
+                showLoading('切换槽位并重启...');
+                await this.exec('update_engine --misc=other >/dev/null 2>&1');
+                await this.exec('reboot');
+            } catch (error: any) {
+                showError('切换槽位失败: ' + (error.message || ''));
+            } finally {
+                hideLoading();
+            }
+        },
+
+        async confirmReboot() {
+            this.flashResultVisible = false;
+            try {
+                showLoading('正在重启...');
+                await this.exec('reboot');
+            } catch (error: any) {
+                showError('重启失败: ' + (error.message || ''));
+            } finally {
+                hideLoading();
+            }
         },
 
         async switchSlot() {

@@ -83,7 +83,7 @@
             <text class="card-hint">选择要刷入的 .img 镜像文件</text>
 
             <!-- 槽位选择 -->
-            <div v-if="flashImageHasSlot" class="slot-selector">
+            <div class="slot-selector">
                 <text class="selector-label">目标槽位</text>
                 <div class="slot-btn-group">
                     <div
@@ -99,8 +99,7 @@
                         <text>B 槽</text>
                     </div>
                 </div>
-                <text v-if="flashTargetSlot === '_a' && currentSlot === '_a'" class="slot-warn">当前运行槽位</text>
-                <text v-if="flashTargetSlot === '_b' && currentSlot === '_b'" class="slot-warn">当前运行槽位</text>
+                <text v-if="flashSlotWarning" class="slot-warn">当前运行槽位</text>
             </div>
 
             <!-- 目标分区预览 -->
@@ -195,6 +194,26 @@
     </div>
 
 </scroller>
+
+<!-- 刷机结果弹窗 -->
+<div v-if="flashResultVisible" class="modal-overlay" @click="dismissFlashResult">
+    <div class="modal-card" @click.stop>
+        <text class="modal-title">刷机完成</text>
+        <text class="modal-msg">{{ flashResultMessage }}</text>
+        <div class="modal-btns">
+            <div v-if="flashResultTargetSlot !== currentSlot" class="btn btn-danger" @click="confirmSlotSwitchReboot">
+                <text>切槽并重启</text>
+            </div>
+            <div class="btn btn-primary" @click="confirmReboot">
+                <text>仅重启</text>
+            </div>
+            <div class="btn btn-secondary" @click="dismissFlashResult">
+                <text>稍后</text>
+            </div>
+        </div>
+    </div>
+</div>
+
 <Loading/>
 <ToastMessage/>
 </div>
