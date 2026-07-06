@@ -1,19 +1,35 @@
-/* misc.less - 扁平化主题样式 */
+/* misc.less - 与全局设计 tokens 统一的深色主题样式 */
+@import url('../../styles/tokens.less');
 @import url('../../styles/section.less');
 
 .container {
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: @surface;
 }
 
 .scroll-area {
-  padding: 12px;
+  padding: 16px;
 }
 
-/* 区块样式 */
-.block {
-  margin-bottom: 8px;
+/* 欢迎页眉 */
+.header {
+  padding: 8px 4px 16px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.welcome-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: @on-primary;
+}
+
+.welcome-subtitle {
+  font-size: 12px;
+  color: @outline;
+  opacity: 0.7;
 }
 
 /* 按钮行布局 */
@@ -24,21 +40,27 @@
   margin-bottom: 10px;
 }
 
-/* 扁平化按钮项 */
+.btn-row:last-child {
+  margin-bottom: 0;
+}
+
+/* 按钮项 */
 .btn-item {
   flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 12px 0;
-  background-color: #111111;
-  border: 1px solid #333333;
-  border-radius: 4px;
+  height: 44px;
+  background-color: @surface-alt;
+  border: 1px solid @border-color;
+  border-radius: 10px;
 }
 
 .btn-item:active {
-  background-color: #222222;
+  background-color: @primary;
+  border-color: @on-primary;
+  transform: scale(0.97);
 }
 
 /* 宽按钮 */
@@ -47,17 +69,32 @@
   width: 100%;
 }
 
+/* 手电筒开启状态 */
+.btn-item-active {
+  background-color: @primary;
+  border-color: @on-primary;
+}
+
+.btn-item-active .btn-text {
+  color: @on-primary;
+  font-weight: bold;
+}
+
 /* 按钮文字 */
 .btn-text {
   font-size: 14px;
-  color: #cccccc;
+  color: @on-neutral;
   text-align: center;
+}
+
+.btn-item:active .btn-text {
+  color: @on-primary;
 }
 
 /* 功能说明文本 */
 .function-description {
   font-size: 12px;
-  color: #888888;
+  color: @outline;
   line-height: 16px;
   text-align: center;
   margin-top: 4px;

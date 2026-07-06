@@ -2,14 +2,15 @@
   <div class="container">
     <scroller class="scroll-area" scroll-direction="vertical">
       <!-- 页面标题 -->
-      <div class="section">
-        <text class="section-title">杂项设置</text>
+      <div class="header">
+        <text class="welcome-title">杂项设置</text>
+        <text class="welcome-subtitle">Miscellaneous Settings</text>
       </div>
 
       <!-- 亮屏时间 -->
       <div class="section">
         <text class="section-title">亮屏时间设置</text>
-        <div class="block">
+        <div class="info-card">
           <div class="btn-row">
             <div class="btn-item" @click="setBrightTime(30, '30秒')">
               <text class="btn-text">30秒</text>
@@ -40,7 +41,7 @@
       <!-- 屏幕亮度 -->
       <div class="section">
         <text class="section-title">屏幕亮度设置</text>
-        <div class="block">
+        <div class="info-card">
           <div class="btn-row">
             <div class="btn-item" @click="setBrightness(30)">
               <text class="btn-text">低亮度</text>
@@ -58,9 +59,9 @@
       <!-- 手电筒 -->
       <div class="section">
         <text class="section-title">手电筒控制</text>
-        <div class="block">
+        <div class="info-card">
           <div class="btn-row">
-            <div class="btn-item wide" @click="toggleTorch">
+            <div :class="['btn-item', 'wide', torchOn ? 'btn-item-active' : '']" @click="toggleTorch">
               <text class="btn-text">{{ torchOn ? '关闭手电筒' : '打开手电筒' }}</text>
             </div>
           </div>

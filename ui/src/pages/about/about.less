@@ -1,63 +1,86 @@
-/* about.less - 使用图片图标的关于页面样式 */
+/* about.less - 与全局设计 tokens 统一的深色主题样式 */
+@import url('../../styles/tokens.less');
 @import url('../../styles/section.less');
 
-/* 项目信息卡片 */
-.info-card {
+.container {
+    background-color: @surface;
+}
+
+/* 欢迎页眉 */
+.header {
+    padding: 24px 16px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.welcome-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: @on-primary;
+}
+
+.welcome-subtitle {
+    font-size: 12px;
+    color: @outline;
+    opacity: 0.7;
+}
+
+/* 项目信息主卡片 */
+.hero-card {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 15px;
-    background-color: #111111;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #333333;
+    padding: 20px 16px;
+    background-color: @card-bg;
+    border-radius: 14px;
+    border: 1px solid @border-color;
+    align-items: center;
 }
 
-/* 项目标题 */
 .project-title {
-    font-size: 18px;
-    color: #00ff00;
+    font-size: 20px;
+    color: @on-primary;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 5px;
 }
 
-/* 项目描述 */
 .project-description {
-    font-size: 14px;
-    color: #cccccc;
+    font-size: 13px;
+    color: @on-neutral;
     line-height: 20px;
-    text-align: justify;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    text-align: center;
 }
 
-/* 鸣谢区域 */
-.credits-section {
+/* 通用信息卡片 */
+.info-card {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 10px;
-    background-color: #111111;
-    border-radius: 5px;
-    margin-top: 10px;
-    border: 1px solid #333333;
+    gap: 6px;
+    padding: 16px;
+    background-color: @card-bg;
+    border-radius: 14px;
+    border: 1px solid @border-color;
+}
+
+.info-card.no-pad {
+    padding: 4px 16px;
+    gap: 0;
 }
 
 .credit-title {
-    font-size: 16px;
-    color: #ffc107;
-    margin-bottom: 3px;
+    font-size: 13px;
+    color: @outline;
 }
 
 .credit-names {
     font-size: 14px;
-    color: #007acc;
+    color: @on-primary;
     line-height: 22px;
     white-space: pre-line;
 }
 
-/* 图片图标样式 */
+/* 图标 */
 .image-icon {
     width: 20px;
     height: 20px;
@@ -69,12 +92,17 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    padding: 12px;
-    border-bottom: 1px solid #333333;
+    padding: 14px 0;
+    border-bottom: 1px solid @border-color;
 }
 
 .link-item:active {
-    background-color: #222222;
+    opacity: 0.7;
+}
+
+.link-arrow {
+    font-size: 14px;
+    color: @outline;
 }
 
 /* 文本项目样式（不可点击） */
@@ -83,27 +111,23 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    padding: 12px;
-    border-bottom: 1px solid #333333;
+    padding: 14px 0;
+    border-bottom: 1px solid @border-color;
+}
+
+.info-card.no-pad .text-item:last-child,
+.info-card.no-pad .link-item:last-child {
+    border-bottom-width: 0;
 }
 
 .link-text {
     font-size: 14px;
-    color: #cccccc;
+    color: @on-neutral;
     flex: 1;
 }
 
 .text-content {
-    font-size: 14px;
-    color: #888888;
+    font-size: 13px;
+    color: @outline;
     flex: 1;
-}
-
-/* 图标容器 */
-.icon-container {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

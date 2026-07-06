@@ -1,3 +1,4 @@
+@import url('../../styles/tokens.less');
 @import url('../../styles/section.less');
 
 /* 卡片样式 */
@@ -5,12 +6,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 15px;
-    background-color: #111111;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    border: 1px solid #333333;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    background-color: @card-bg;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    border: 1px solid @border-color;
 }
 
 /* 状态行 */
@@ -24,7 +24,7 @@
 
 .status-label {
     font-size: 14px;
-    color: #888888;
+    color: @outline;
 }
 
 .status-value {
@@ -38,28 +38,28 @@
 
 /* 状态颜色 */
 .status-idle {
-    color: #ffffff;
-    background-color: #28a745;
+    color: @on-success;
+    background-color: @success;
 }
 
 .status-checking {
-    color: #ffffff;
-    background-color: #17a2b8;
+    color: @on-info;
+    background-color: @info;
 }
 
 .status-updated {
-    color: #ffffff;
-    background-color: #28a745;
+    color: @on-success;
+    background-color: @success;
 }
 
 .status-available {
-    color: #ffffff;
-    background-color: #ffc107;
+    color: @on-warning;
+    background-color: @warning;
 }
 
 .status-error {
-    color: #ffffff;
-    background-color: #ff6b6b;
+    color: @error-text;
+    background-color: @danger;
 }
 
 /* 版本行 */
@@ -74,42 +74,42 @@
 
 .version-label {
     font-size: 14px;
-    color: #888888;
+    color: @outline;
 }
 
 .version-text {
     font-size: 14px;
-    color: #ffffff;
+    color: @on-neutral;
     padding: 4px 8px;
     border-radius: 6px;
-    background-color: #222222;
+    background-color: @surface-alt;
 }
 
 .version-new {
-    color: #28a745;
+    color: @on-success;
     font-weight: bold;
-    background-color: #1a4a2e;
+    background-color: @success;
 }
 
 .version-old {
-    color: #ffc107;
-    background-color: #4a3e1a;
+    color: @on-warning;
+    background-color: @warning;
 }
 
 /* 版本比较颜色 */
 .version-newer {
-    color: #28a745;
-    background-color: #1a4a2e;
+    color: @on-success;
+    background-color: @success;
 }
 
 .version-older {
-    color: #ff6b6b;
-    background-color: #4a1e1e;
+    color: @error-text;
+    background-color: @danger;
 }
 
 .version-same {
-    color: #17a2b8;
-    background-color: #0e3d4a;
+    color: @on-info;
+    background-color: @info;
 }
 
 /* 按钮行 */
@@ -145,54 +145,54 @@
     transform: scale(0.98);
 }
 
-/* 检查更新按钮 - 蓝色 */
+/* 检查更新按钮 */
 .main-btn {
-    background-color: #007acc;
-    border-color: #007acc;
+    background-color: @primary;
+    color: @on-primary;
 }
 
 .main-btn:active {
-    background-color: #005a99;
+    opacity: 0.8;
 }
 
-/* 安装按钮 - 绿色 */
+/* 安装按钮 */
 .install-btn {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: @on-success;
+    color: #ffffff;
 }
 
 .install-btn:active {
-    background-color: #218838;
+    opacity: 0.8;
 }
 
-/* 无更新按钮 - 灰色 */
+/* 无更新按钮 */
 .no-update-btn {
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: @outline;
+    color: @surface;
 }
 
 .no-update-btn:active {
-    background-color: #5a6268;
+    opacity: 0.8;
 }
 
 /* 下载进度 */
 .progress-text {
     font-size: 13px;
-    color: #cccccc;
+    color: @on-neutral;
     margin-bottom: 6px;
 }
 
 .progress-bar-bg {
     width: 100%;
     height: 8px;
-    background-color: #222222;
+    background-color: @surface-alt;
     border-radius: 4px;
     overflow: hidden;
 }
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #007acc;
+    background-color: @primary;
     border-radius: 4px;
     transition: width 0.3s;
 }
@@ -202,14 +202,14 @@
     flex: 1;
     min-height: 120px;
     max-height: 200px;
-    background-color: #1a1a1a;
+    background-color: @surface-alt;
     border-radius: 8px;
     padding: 15px;
 }
 
 .release-content {
     font-size: 14px;
-    color: #cccccc;
+    color: @on-neutral;
     line-height: 20px;
     white-space: pre-line;
 }
@@ -222,30 +222,30 @@
     gap: 10px;
     margin-bottom: 8px;
     padding: 8px;
-    background-color: #1a1a1a;
+    background-color: @surface-alt;
     border-radius: 8px;
 }
 
 .file-label {
     font-size: 14px;
-    color: #888888;
+    color: @outline;
 }
 
 .file-value {
     font-size: 14px;
-    color: #cccccc;
+    color: @on-neutral;
     flex: 1;
     word-wrap: break-word;
 }
 
 /* 使用说明 */
 .instruction-text {
-    font-size: 14px;
-    color: #cccccc;
+    font-size: 13px;
+    color: @outline;
     line-height: 20px;
     white-space: pre-line;
     text-align: justify;
     padding: 15px;
-    background-color: #1a1a1a;
+    background-color: @surface-alt;
     border-radius: 8px;
 }
