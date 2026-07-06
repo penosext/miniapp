@@ -107,6 +107,11 @@
                 <text class="preview-label">目标分区: {{ flashTargetPartition }}</text>
             </div>
 
+            <!-- 禁止刷入提示 -->
+            <div v-if="flashTargetPartition && !flashTargetAllowed" class="flash-banned">
+                <text class="banned-text">仅允许刷入 boot / system / rootfs 分区，其他分区请备份后手动 dd</text>
+            </div>
+
             <!-- 镜像列表 -->
             <div v-if="images.length > 0" class="image-list">
                 <div

@@ -132,7 +132,7 @@ const backup = defineComponent({
             return this.backupSelectedPartition !== '' && this.userdiskMounted && !this.backupRunning && !this.flashRunning;
         },
         canFlash(): boolean {
-            return this.flashSelectedImage !== '' && this.userdiskMounted && !this.flashRunning && !this.backupRunning;
+            return this.flashSelectedImage !== '' && this.userdiskMounted && !this.flashRunning && !this.backupRunning && this.flashTargetAllowed;
         },
         // 刷机目标分区预览
         flashTargetPartition(): string {
@@ -144,6 +144,13 @@ const backup = defineComponent({
         // 槽位是否需警告（当前运行槽位）
         flashSlotWarning(): boolean {
             return this.flashTargetSlot === this.currentSlot;
+        },
+        // 目标分区是否允许刷入
+        flashTargetAllowed(): boolean {
+            if (!this.flashTargetPartition) return true;
+            const allowed = ['boot', 'boot_a', 'boot_b', 'system', 'system_a', 'system_b',
+                            'system_ext', 'system_ext_a', 'system_ext_b', 'rootfs'];
+            return allowed.includes(this.flashTargetPartition);
         },
     },
 
