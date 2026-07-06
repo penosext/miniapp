@@ -148,8 +148,7 @@ const backup = defineComponent({
         // 目标分区是否允许刷入
         flashTargetAllowed(): boolean {
             if (!this.flashTargetPartition) return true;
-            const allowed = ['boot', 'boot_a', 'boot_b', 'system', 'system_a', 'system_b',
-                            'system_ext', 'system_ext_a', 'system_ext_b', 'rootfs'];
+            const allowed = ['boot', 'boot_a', 'boot_b', 'system', 'system_a', 'system_b', 'rootfs'];
             return allowed.includes(this.flashTargetPartition);
         },
     },
