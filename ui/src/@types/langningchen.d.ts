@@ -22,6 +22,15 @@ export declare class ScanInput {
 }
 
 export declare class Shell {
+    // 基础方法
     static initialize(): Promise<void>;
     static exec(cmd: string): Promise<string>;
+
+    // PTY 终端方法 (同步)
+    static openPty(cols?: number, rows?: number): boolean;
+    static writePty(data: string): boolean;
+    static readPty(): string;
+    static closePty(): void;
+    static resizePty(cols: number, rows: number): void;
+    static isPtyRunning(): boolean;
 }

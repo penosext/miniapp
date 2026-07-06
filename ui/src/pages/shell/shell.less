@@ -1,146 +1,160 @@
+// Doge-reader inspired design tokens
+@surface: #080a0c;
+@primary: #004a77;
+@on-primary: #c2e7ff;
+@neutral: #1a1b1f;
+@on-neutral: #e3e3e3;
+@outline: #8e918f;
+@term-green: #00cc66;
+@term-white: #e0e0e0;
+
 .container {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
-  display: flex;
-  flex-direction: column;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: @surface;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 终端输出区域 - 占据大部分空间 */
+/* 终端输出区域 */
 .terminal-content {
-  flex: 1;
-  width: 100%;
-  background-color: #0c0c0c;
+    flex: 1;
+    width: 100%;
+    background-color: @surface;
 }
 
 .terminal-scroller {
-  width: 100%;
-  height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 5px;
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
 }
 
 .terminal-line {
-  width: 100%;
-  margin-bottom: 2px;
+    width: 100%;
+    margin-bottom: 1px;
 }
 
 .line-text {
-  font-size: 14px;
-  line-height: 18px;
-  font-family: 'Monaco', 'Consolas', monospace;
-  word-break: break-word;
-  color: #00ff00
-}
-
-.line-text.command {
-  color: #00ff00;
-  font-weight: bold;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    word-break: break-word;
+    color: @term-white;
 }
 
 .line-text.output {
-  color: #cccccc;
+    color: @term-white;
 }
 
 .line-text.error {
-  color: #ff5555;
+    color: #ff6b6b;
 }
 
-.command-prompt {
-  flex-direction: row;
-  align-items: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
+.line-text.system {
+    color: @outline;
 }
 
-.prompt {
-  color: #00ff00;
-  font-size: 14px;
-  font-weight: bold;
-  margin-right: 5px;
+.line-text.command {
+    color: @term-green;
+    font-weight: bold;
 }
 
-.cursor {
-  color: #00ff00;
-  font-size: 14px;
-  animation-name: blink;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-}
-
-.loading {
-  color: #ffaa00;
-  font-size: 14px;
-}
-
-/* 输入区域 - 固定在底部 */
+/* 输入区域 */
 .input-section {
-  height: 50px;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #1a1a1a;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #333333;
+    height: 48px;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 8px;
+    background-color: @neutral;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: @primary;
 }
 
 .input-container {
-  flex: 1;
-  height: 36px;
-  background-color: #000000;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 4px;
-  justify-content: center;
+    flex: 1;
+    height: 36px;
+    background-color: @surface;
+    padding: 0 10px;
+    border-radius: 6px;
+    flex-direction: row;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: @outline;
+}
+
+.input-prompt {
+    font-size: 13px;
+    color: @term-green;
+    font-family: 'Monaco', 'Consolas', monospace;
+    margin-right: 6px;
+    font-weight: bold;
 }
 
 .input-text {
-  font-size: 14px;
-  color: #ffffff;
-  line-height: 36px;
+    flex: 1;
+    font-size: 13px;
+    color: @term-white;
+    font-family: 'Monaco', 'Consolas', monospace;
+    line-height: 36px;
 }
 
-/* 操作按钮 - 紧凑布局 */
+.input-cursor {
+    font-size: 14px;
+    color: @term-green;
+    font-family: 'Monaco', 'Consolas', monospace;
+    animation-name: blink;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
+/* 操作按钮 */
 .action-buttons {
-  flex-direction: row;
-  margin-left: 8px;
+    flex-direction: row;
+    margin-left: 6px;
+    gap: 4px;
 }
 
 .btn {
-  min-width: 60px;
-  height: 36px;
-  padding-left: 12px;
-  padding-right: 12px;
-  font-size: 14px;
-  color: #ffffff;
-  text-align: center;
-  line-height: 36px;
-  border-radius: 4px;
-  margin-left: 4px;
+    height: 34px;
+    padding: 0 12px;
+    font-size: 12px;
+    color: @on-neutral;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-execute {
-  background-color: #007bff;
+.btn-send {
+    background-color: @primary;
+    color: @on-primary;
+    font-weight: bold;
+}
+
+.btn-send:active {
+    opacity: 0.8;
+    transform: scale(0.97);
 }
 
 .btn-clear {
-  background-color: #444444;
+    background-color: @outline;
+    color: @surface;
 }
 
-.btn-disabled {
-  background-color: #333333;
-  color: #666666;
+.btn-clear:active {
+    opacity: 0.8;
+    transform: scale(0.97);
 }
 
 @keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }

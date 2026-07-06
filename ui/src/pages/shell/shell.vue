@@ -18,37 +18,38 @@
 -->
 
 <template>
-  <div class="container">
+<div class="container">
     <!-- 终端输出区域 -->
     <div class="terminal-content">
-      <scroller 
-        class="terminal-scroller"
-        ref="scroller"
-        scroll-direction="vertical"
-        :show-scrollbar="true"
-      >
-        <div v-for="line in terminalLines" :key="line.id" class="terminal-line">
-          <text :class="['line-text', line.type]">{{ line.content }}</text>
-        </div>
-        
-        <!-- 命令提示符 -->
-        <div class="command-prompt">
-          <text class="prompt">{{ currentDir }} $</text>
-          <text v-if="!isExecuting" class="cursor">█</text>
-          <text v-else class="loading">⌛ 执行中...</text>
-        </div>
-      </scroller>
+        <scroller
+            class="terminal-scroller"
+            ref="scroller"
+            scroll-direction="vertical"
+            :show-scrollbar="true"
+        >
+            <div v-for="line in terminalLines" :key="line.id" class="terminal-line">
+                <text :class="['line-text', line.type]">{{ line.content }}</text>
+            </div>
+        </scroller>
     </div>
 
     <!-- 输入区域 -->
     <div class="input-section">
-      <div class="input-container" @click="openKeyboard">
-        <text class="input-text">{{ inputText || '点击输入命令...' }}</text>
-      </div>
-     <div class="action-buttons"><text class="btn btn-execute" @click="executeCommand">发送</text></div>
-     <div class="action-buttons"><text class="btn btn-clear" @click="clearTerminal">清空</text></div>
+        <div class="input-container" @click="openKeyboard">
+            <text class="input-prompt">$</text>
+            <text class="input-text">{{ inputText || '点击输入命令...' }}</text>
+            <text class="input-cursor">|</text>
+        </div>
+        <div class="action-buttons">
+            <div class="btn btn-send" @click="executeCommand">
+                <text>发送</text>
+            </div>
+            <div class="btn btn-clear" @click="clearTerminal">
+                <text>清空</text>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 </template>
 
 <style lang="less" scoped>
