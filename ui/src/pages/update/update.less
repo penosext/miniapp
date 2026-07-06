@@ -1,26 +1,16 @@
 @import url('../../styles/section.less');
 
-/* 卡片样式 - 与 about 页面保持一致，增加圆角弧度 */
+/* 卡片样式 */
 .info-card {
     display: flex;
     flex-direction: column;
     gap: 8px;
     padding: 15px;
     background-color: #111111;
-    border-radius: 12px; /* 增加圆角弧度 */
+    border-radius: 12px;
     margin-bottom: 10px;
     border: 1px solid #333333;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 添加轻微阴影增强立体感 */
-}
-
-.operations-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #111111;
-    border-radius: 12px; /* 增加圆角弧度 */
-    border: 1px solid #333333;
-    overflow: hidden; /* 确保子元素不会溢出圆角 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 添加轻微阴影增强立体感 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 状态行 */
@@ -40,16 +30,16 @@
 .status-value {
     font-size: 14px;
     font-weight: bold;
-    padding: 8px 12px; /* 增加内边距 */
-    border-radius: 8px; /* 增加圆角弧度 */
+    padding: 8px 12px;
+    border-radius: 8px;
     text-align: center;
     min-width: 100px;
 }
 
 /* 状态颜色 */
 .status-idle {
-    color: #ffffff; /* 白色字体 */
-    background-color: #28a745; /* 绿色背景 */
+    color: #ffffff;
+    background-color: #28a745;
 }
 
 .status-checking {
@@ -69,13 +59,7 @@
 
 .status-error {
     color: #ffffff;
-    background-color: #ff6b6b; /* 浅红色 */
-}
-
-.status-downloading,
-.status-installing {
-    color: #ffffff;
-    background-color: #007acc;
+    background-color: #ff6b6b;
 }
 
 /* 版本行 */
@@ -91,14 +75,13 @@
 .version-label {
     font-size: 14px;
     color: #888888;
-    min-width: 80px;
 }
 
 .version-text {
     font-size: 14px;
     color: #ffffff;
     padding: 4px 8px;
-    border-radius: 6px; /* 增加圆角弧度 */
+    border-radius: 6px;
     background-color: #222222;
 }
 
@@ -113,17 +96,6 @@
     background-color: #4a3e1a;
 }
 
-/* 仓库类型颜色 */
-.repo-type-release {
-    color: #28a745;
-    background-color: #1a4a2e;
-}
-
-.repo-type-dev {
-    color: #17a2b8;
-    background-color: #0e3d4a;
-}
-
 /* 版本比较颜色 */
 .version-newer {
     color: #28a745;
@@ -131,7 +103,7 @@
 }
 
 .version-older {
-    color: #ff6b6b; /* 浅红色 */
+    color: #ff6b6b;
     background-color: #4a1e1e;
 }
 
@@ -140,7 +112,7 @@
     background-color: #0e3d4a;
 }
 
-/* 按钮行样式 */
+/* 按钮行 */
 .button-row {
     display: flex;
     flex-direction: row;
@@ -150,14 +122,12 @@
     width: 100%;
 }
 
-/* 修改：使用flex布局确保文字居中 */
 .action-btn {
     flex: 1;
     height: 40px;
     border-radius: 10px;
     font-size: 14px;
     font-weight: bold;
-    border: 1px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,8 +136,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 0 8px;
-    background-color: #007acc;
-    border-color: #007acc;
     cursor: pointer;
     user-select: none;
 }
@@ -177,14 +145,7 @@
     transform: scale(0.98);
 }
 
-.action-btn.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-/* 主按钮（检查更新） - 保持蓝色 */
+/* 检查更新按钮 - 蓝色 */
 .main-btn {
     background-color: #007acc;
     border-color: #007acc;
@@ -192,16 +153,6 @@
 
 .main-btn:active {
     background-color: #005a99;
-}
-
-/* 仓库切换按钮 - 保持青色 */
-.repo-btn {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-}
-
-.repo-btn:active {
-    background-color: #138496;
 }
 
 /* 安装按钮 - 绿色 */
@@ -224,125 +175,29 @@
     background-color: #5a6268;
 }
 
-/* 解锁按钮 - 灰色/浅红色 */
-.unlock-btn {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.unlock-btn-active {
-    background-color: #ff6b6b; /* 浅红色 */
-    border-color: #ff6b6b;
-}
-
-.unlock-btn:active,
-.unlock-btn-active:active {
-    opacity: 0.8;
-    transform: scale(0.98);
-}
-
-/* 解锁通知 - 浅红色 */
-.unlock-notice {
-    border-left: 4px solid #ff6b6b; /* 浅红色 */
-    background-color: rgba(255, 107, 107, 0.1);
-}
-
-/* 卡片副标题 */
-.card-subtitle {
-    font-size: 14px;
-    color: #cccccc;
-    margin-bottom: 10px;
-    text-align: center;
-    padding: 8px;
-    background-color: #222222;
-    border-radius: 8px; /* 增加圆角弧度 */
-}
-
-/* 镜像源相关样式 */
-.mirror-slider-container {
-    margin: 10px 0;
-}
-
-.mirror-slider-scroller {
-    width: 100%;
-    height: 50px;
-    background-color: #222222;
-    border-radius: 10px; /* 增加圆角弧度 */
-    border: 1px solid #333333;
-    padding: 0 5px;
-}
-
-.mirror-slider-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 0;
-}
-
-.mirror-slider-item {
-    flex-shrink: 0;
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    border-radius: 8px; /* 增加圆角弧度 */
-    background-color: #222222;
-    color: #cccccc;
-    font-size: 12px;
-    margin-right: 8px;
-    border: 1px solid #444444;
-}
-
-.mirror-slider-item:active {
-    background-color: #005a99;
-    opacity: 0.8;
-    transform: scale(0.98);
-}
-
-.mirror-slider-item-selected {
-    background-color: #007acc;
-    color: #ffffff;
-    border-color: #007acc;
-}
-
-.mirror-slider-item-selected:active {
-    background-color: #005a99;
-}
-
-.mirror-status-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding: 12px;
-    background-color: #1a1a1a;
-    border-radius: 8px; /* 增加圆角弧度 */
-}
-
-.mirror-current {
+/* 下载进度 */
+.progress-text {
     font-size: 13px;
     color: #cccccc;
+    margin-bottom: 6px;
 }
 
-.mirror-status {
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    text-align: center;
-}
-
-.mirror-status-active {
-    color: #28a745;
-    background-color: #1a4a2e;
-}
-
-.mirror-status-disabled {
-    color: #888888;
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
     background-color: #222222;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-/* 更新说明 - 移除内外框间隔和黑边 */
+.progress-bar-fill {
+    height: 100%;
+    background-color: #007acc;
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+/* 更新说明 */
 .release-notes {
     flex: 1;
     min-height: 120px;
@@ -374,7 +229,6 @@
 .file-label {
     font-size: 14px;
     color: #888888;
-    min-width: 80px;
 }
 
 .file-value {
@@ -384,46 +238,7 @@
     word-wrap: break-word;
 }
 
-/* 链接项目样式（可点击）- 与 about 页面保持一致 */
-.link-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 14px 12px;
-    border-bottom: 1px solid #333333;
-    min-height: 50px;
-}
-
-.link-item:active {
-    background-color: #222222;
-    opacity: 0.8;
-}
-
-/* 文本项目样式（不可点击）- 与 about 页面保持一致 */
-.text-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 14px 12px;
-    border-bottom: 1px solid #333333;
-    min-height: 50px;
-}
-
-.link-text {
-    font-size: 14px;
-    color: #cccccc;
-    flex: 1;
-    font-weight: 500;
-}
-
-.text-content {
-    font-size: 14px;
-    color: #888888;
-    flex: 1;
-    font-weight: 500;
-}
-
-/* 使用说明文本 - 移除内外框间隔和黑边 */
+/* 使用说明 */
 .instruction-text {
     font-size: 14px;
     color: #cccccc;

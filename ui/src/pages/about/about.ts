@@ -30,8 +30,9 @@ const about = defineComponent({
             
             // 鸣谢信息
             credits: [
+                { name: '@langningchen', role: '核心开发' },
                 { name: '@wyxdlz54188', role: '核心开发' },
-                { name: '@langningchen', role: '核心开发' }
+                { name: '@xiongzhuosen', role: '核心开发' }
             ],
             
             // GitHub 信息

@@ -2,14 +2,12 @@
 #include <jquick_config.h>
 #include "ScanInput/JSScanInput.hpp"
 #include "Shell/JSShell.hpp"
-#include "Update/JSUpdate.hpp"
 
 using namespace JQUTIL_NS;
 
 static std::vector<std::string> exportList = {
     "ScanInput",
-    "Shell",
-    "Update"
+    "Shell"
 };
 
 static int module_init(JSContext *ctx, JSModuleDef *m)
@@ -18,7 +16,6 @@ static int module_init(JSContext *ctx, JSModuleDef *m)
 
     env->setModuleExport("ScanInput", createScanInput(env.get()));
     env->setModuleExport("Shell", createShell(env.get()));
-    env->setModuleExport("Update", createUpdate(env.get()));
 
     env->setModuleExportDone(JS_UNDEFINED, exportList);
     return 0;
