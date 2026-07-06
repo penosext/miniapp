@@ -19,15 +19,47 @@
 
 <template>
     <scroller class="container" scroll-direction="vertical" :show-scrollbar="true">
+        <!-- 欢迎页眉 -->
+        <div class="header">
+            <text class="welcome-title">设备管理</text>
+            <text class="welcome-subtitle">System Management Toolkit</text>
+        </div>
+
         <div class="section">
-            <text class="section-title">可用功能</text>
+            <text class="section-title">功能中心</text>
             
-            <div class="item"><text class="item-text" @click="Backup">备份/刷机</text></div>
-            <div class="item"><text class="item-text" @click="Store">软件商店</text></div>
-            <div class="item"><text class="item-text" @click="PenTerm">PenTerm</text></div>
-            <div class="item"><text class="item-text" @click="Deviceinfo">设备信息</text></div>
-            <div class="item"><text class="item-text" @click="Misc">杂项设置</text></div>
-            <div class="item"><text class="item-text" @click="About">关于我们</text></div>       
+            <div class="menu-grid">
+                <div class="menu-card" @click="Backup">
+                    <div class="card-icon icon-backup"></div>
+                    <text class="card-label">备份/刷机</text>
+                    <text class="card-desc">分区备份与镜像还原</text>
+                </div>
+                <div class="menu-card" @click="Store">
+                    <div class="card-icon icon-store"></div>
+                    <text class="card-label">软件商店</text>
+                    <text class="card-desc">应用安装与更新</text>
+                </div>
+                <div class="menu-card" @click="PenTerm">
+                    <div class="card-icon icon-term"></div>
+                    <text class="card-label">PenTerm</text>
+                    <text class="card-desc">交互式 Shell 终端</text>
+                </div>
+                <div class="menu-card" @click="Deviceinfo">
+                    <div class="card-icon icon-info"></div>
+                    <text class="card-label">设备信息</text>
+                    <text class="card-desc">硬件参数与系统状态</text>
+                </div>
+                <div class="menu-card" @click="Misc">
+                    <div class="card-icon icon-misc"></div>
+                    <text class="card-label">杂项设置</text>
+                    <text class="card-desc">系统底层配置调整</text>
+                </div>
+                <div class="menu-card" @click="About">
+                    <div class="card-icon icon-about"></div>
+                    <text class="card-label">关于我们</text>
+                    <text class="card-desc">项目信息与贡献者</text>
+                </div>       
+            </div>
         </div>
     </scroller>
 </template>

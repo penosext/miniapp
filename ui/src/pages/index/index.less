@@ -1,1 +1,100 @@
+// Design tokens
+@surface: #080a0c;
+@card-bg: #0d0f12;
+@primary: #004a77;
+@on-primary: #c2e7ff;
+@neutral: #1a1b1f;
+@on-neutral: #e3e3e3;
+@outline: #8e918f;
+
 @import url('../../styles/section.less');
+
+.container {
+    background-color: @surface;
+}
+
+/* 欢迎页眉 */
+.header {
+    padding: 24px 16px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.welcome-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: @on-primary;
+}
+
+.welcome-subtitle {
+    font-size: 12px;
+    color: @outline;
+    opacity: 0.7;
+}
+
+/* 功能网格 */
+.menu-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 4px 0;
+}
+
+.menu-card {
+    flex: 1;
+    min-width: 140px;
+    height: 110px;
+    padding: 16px;
+    background-color: @card-bg;
+    border-radius: 14px;
+    border: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.menu-card:active {
+    background-color: @primary;
+    transform: scale(0.96);
+    border-color: @on-primary;
+}
+
+.card-icon {
+    width: 32px;
+    height: 32px;
+    background-color: @neutral;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    border: 1px solid #333;
+}
+
+.card-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: @on-neutral;
+}
+
+.card-desc {
+    font-size: 11px;
+    color: @outline;
+    text-align: center;
+}
+
+.menu-card:active .card-label,
+.menu-card:active .card-desc {
+    color: @on-primary;
+}
+
+/* 图标占位符色彩 (模拟不同功能) */
+.icon-backup { background-color: #1a3a5a; }
+.icon-store { background-color: #2a4a2a; }
+.icon-term { background-color: #3a3a1a; }
+.icon-info { background-color: #4a2a3a; }
+.icon-misc { background-color: #2a2a2a; }
+.icon-about { background-color: #1a1a1a; }
