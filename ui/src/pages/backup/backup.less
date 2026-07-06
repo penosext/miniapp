@@ -263,6 +263,75 @@
     color: @on-neutral;
 }
 
+/* 刷机槽位选择 */
+.slot-selector {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background-color: @surface;
+    border-radius: 8px;
+    margin-top: 4px;
+}
+
+.selector-label {
+    font-size: 12px;
+    color: @outline;
+    width: 52px;
+}
+
+.slot-btn-group {
+    flex-direction: row;
+    gap: 4px;
+    flex: 1;
+}
+
+.slot-btn {
+    flex: 1;
+    height: 30px;
+    border-radius: 6px;
+    background-color: #1a1b1f;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    color: @outline;
+}
+
+.slot-btn:active {
+    opacity: 0.8;
+}
+
+.slot-active {
+    background-color: @primary;
+    border-color: @primary;
+    color: @on-primary;
+    font-weight: bold;
+}
+
+.slot-warn {
+    font-size: 11px;
+    color: #ffb347;
+    margin-left: 4px;
+}
+
+/* 目标分区预览 */
+.target-preview {
+    padding: 6px 10px;
+    background-color: #0a1620;
+    border-radius: 6px;
+    border: 1px solid @primary;
+    margin-top: 4px;
+}
+
+.preview-label {
+    font-size: 13px;
+    color: @on-primary;
+    font-weight: bold;
+}
+
 /* 使用说明 */
 .instruction-text {
     font-size: 12px;

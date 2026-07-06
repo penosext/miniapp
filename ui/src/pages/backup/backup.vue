@@ -82,6 +82,32 @@
         <div class="info-card">
             <text class="card-hint">选择要刷入的 .img 镜像文件</text>
 
+            <!-- 槽位选择 -->
+            <div v-if="flashImageHasSlot" class="slot-selector">
+                <text class="selector-label">目标槽位</text>
+                <div class="slot-btn-group">
+                    <div
+                        @click="flashTargetSlot = '_a'"
+                        :class="['slot-btn', flashTargetSlot === '_a' ? 'slot-active' : '']"
+                    >
+                        <text>A 槽</text>
+                    </div>
+                    <div
+                        @click="flashTargetSlot = '_b'"
+                        :class="['slot-btn', flashTargetSlot === '_b' ? 'slot-active' : '']"
+                    >
+                        <text>B 槽</text>
+                    </div>
+                </div>
+                <text v-if="flashTargetSlot === '_a' && currentSlot === '_a'" class="slot-warn">当前运行槽位</text>
+                <text v-if="flashTargetSlot === '_b' && currentSlot === '_b'" class="slot-warn">当前运行槽位</text>
+            </div>
+
+            <!-- 目标分区预览 -->
+            <div v-if="flashTargetPartition" class="target-preview">
+                <text class="preview-label">目标分区: {{ flashTargetPartition }}</text>
+            </div>
+
             <!-- 镜像列表 -->
             <div v-if="images.length > 0" class="image-list">
                 <div

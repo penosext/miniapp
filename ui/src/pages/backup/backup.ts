@@ -85,6 +85,7 @@ const backup = defineComponent({
 
             // 刷机
             flashSelectedImage: '',
+            flashTargetSlot: '_a' as string,
             flashProgress: '',
             flashRunning: false,
 
@@ -128,6 +129,21 @@ const backup = defineComponent({
         canFlash(): boolean {
             return this.flashSelectedImage !== '' && this.userdiskMounted && !this.flashRunning && !this.backupRunning;
         },
+        // 刷机目标分区预览
+        flashTargetPartition(): string {
+            if (!this.flashSelectedImage) return '';
+            const img = this.images.find(i => i.path === this.flashSelectedImage);
+            if (!img) return '';
+            return this.getTargetPartition(img.name);
+        },
+        // 是否显示槽位选择（文件名不含 _a/_b 时显示）
+        flashImageHasSlot(): boolean {
+            if (!this.flashSelectedImage) return true;
+            const img = this.images.find(i => i.path === this.flashSelectedImage);
+            if (!img) return true;
+            const base = img.name.replace(/\.img$/i, '');
+            return !(base.endsWith('_a') || base.endsWith('_b'));
+        },
     },
 
     methods: {
@@ -160,6 +176,9 @@ const backup = defineComponent({
                     "grep -oE 'androidboot.slot_suffix=_[ab]' /proc/cmdline 2>/dev/null | cut -d= -f2"
                 );
                 this.currentSlot = slotRaw || '';
+
+                // 默认刷机目标槽位 = 当前槽位
+                this.flashTargetSlot = this.currentSlot || '_a';
 
                 // 检查 userdisk 挂载
                 const mountCheck = await this.exec('mount 2>/dev/null | grep -q "/userdisk" && echo "1" || echo "0"');
@@ -292,22 +311,34 @@ const backup = defineComponent({
 
         selectImage(path: string) {
             this.flashSelectedImage = this.flashSelectedImage === path ? '' : path;
+            // 如果选中的镜像名含 _a 或 _b，自动设置目标槽位
+            if (this.flashSelectedImage) {
+                const img = this.images.find(i => i.path === this.flashSelectedImage);
+                if (img) {
+                    const base = img.name.replace(/\.img$/i, '');
+                    if (base.endsWith('_a')) {
+                        this.flashTargetSlot = '_a';
+                    } else if (base.endsWith('_b')) {
+                        this.flashTargetSlot = '_b';
+                    }
+                }
+            }
         },
 
         // ── 刷机 ──────────────────────────────────────────────
         getTargetPartition(imageName: string): string {
             // 从文件名推断目标分区
             // system_b.img → system_b
-            // system.img → system_{current_slot}
+            // system.img → system_{selected_slot}
             let base = imageName.replace(/\.img$/i, '');
-            const slotSuffix = this.currentSlot;
+            const slotSuffix = this.flashTargetSlot;
 
             // 如果文件名已包含 _a 或 _b，直接使用
             if (base.endsWith('_a') || base.endsWith('_b')) {
                 return base;
             }
 
-            // 否则加上当前槽位
+            // 否则加上选择的槽位
             return base + slotSuffix;
         },
 
@@ -325,11 +356,13 @@ const backup = defineComponent({
             const targetPath = `/dev/block/by-name/${targetPart}`;
 
             // 危险操作确认
+            const targetSlotLabel = this.flashTargetSlot === '_a' ? 'A 槽' : 'B 槽';
             const confirmed = await this.confirmDangerous(
                 `刷入镜像确认\n\n` +
                 `镜像: ${imageInfo.name} (${imageInfo.size})\n` +
                 `目标分区: ${targetPart}\n` +
-                `当前槽位: ${this.currentSlotDisplay}\n\n` +
+                `目标槽位: ${targetSlotLabel}\n` +
+                `当前运行: ${this.currentSlotDisplay}\n\n` +
                 `警告: 刷写系统分区可能导致设备无法启动！\n` +
                 `请确保镜像文件正确无误。`
             );
@@ -348,9 +381,13 @@ const backup = defineComponent({
 
                 showSuccess(`${targetPart} 刷入完成`);
 
-                // 如果是系统分区，询问是否切换槽位
+                // 如果是系统分区，询问是否切换到刷入的槽位
                 if (targetPart.includes('system') || targetPart.includes('rootfs')) {
-                    this.askSlotSwitch();
+                    if (this.flashTargetSlot !== this.currentSlot) {
+                        this.askSlotSwitch();
+                    } else {
+                        this.askReboot();
+                    }
                 } else {
                     this.askReboot();
                 }
