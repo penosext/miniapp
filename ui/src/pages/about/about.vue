@@ -44,6 +44,11 @@
             <div class="section">
                 <text class="section-title">项目信息</text>
                 
+                <div class="link-item" @click="goToBackup">
+                    <image class="image-icon" resize="contain" :src="require('./images/refresh.png')" />
+                    <text class="link-text">备份/刷机</text>
+                </div>
+
                 <div class="link-item" @click="goToUpdate">
                     <image class="image-icon" resize="contain" :src="require('./images/refresh.png')" />
                     <text class="link-text">Update页面入口</text>

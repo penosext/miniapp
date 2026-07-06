@@ -1,6 +1,7 @@
 {
   "pages": {
     "index": "pages/index/index.vue",
+    "backup": "pages/backup/backup.vue",
     "update": "pages/update/update.vue",
     "about": "pages/about/about.vue",
     "shell": "pages/shell/shell.vue",

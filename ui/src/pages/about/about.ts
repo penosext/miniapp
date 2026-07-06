@@ -66,6 +66,11 @@ const about = defineComponent({
         goToUpdate() {
             $falcon.navTo("update", {});
         },
+
+        // 导航到备份页面
+        goToBackup() {
+            $falcon.navTo("backup", {});
+        },
         
         // 获取鸣谢文本
         getCreditsText(): string {

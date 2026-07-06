@@ -30,6 +30,9 @@ const index = defineComponent({
         PenTerm() {
             $falcon.navTo("shell", {});
         },
+        Backup() {
+            $falcon.navTo("backup", {});
+        },
         Store() {
             $falcon.navTo("store", {});
         },

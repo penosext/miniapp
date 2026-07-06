@@ -1,0 +1,275 @@
+// Doge-reader inspired design tokens
+@surface: #080a0c;
+@card-bg: #0d0f12;
+@primary: #004a77;
+@on-primary: #c2e7ff;
+@neutral: #1a1b1f;
+@on-neutral: #e3e3e3;
+@outline: #8e918f;
+@danger: #7a0f1c;
+@on-danger: #ffd6db;
+@section-bg: #121418;
+
+@import url('../../styles/section.less');
+
+/* 卡片样式 */
+.info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px;
+    background-color: @card-bg;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #222;
+}
+
+/* 设备状态行 */
+.status-row {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.status-item {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: @surface;
+    border-radius: 8px;
+}
+
+.status-label {
+    font-size: 13px;
+    color: @outline;
+}
+
+.status-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: @on-primary;
+}
+
+.status-good {
+    color: #28a745;
+}
+
+.status-bad {
+    color: #ff6b6b;
+}
+
+/* 按钮 */
+.btn-row {
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.btn {
+    flex: 1;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn:active {
+    opacity: 0.8;
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background-color: @primary;
+    color: @on-primary;
+}
+
+.btn-secondary {
+    background-color: @outline;
+    color: @surface;
+}
+
+.btn-danger {
+    background-color: @danger;
+    color: @on-danger;
+}
+
+.btn-refresh {
+    background-color: #222;
+    color: @outline;
+}
+
+.btn-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* 提示文字 */
+.card-hint {
+    font-size: 12px;
+    color: @outline;
+    padding: 4px 0;
+}
+
+/* 分区芯片 */
+.partition-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.partition-chip {
+    padding: 5px 10px;
+    background-color: @surface;
+    border-radius: 6px;
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+.partition-chip:active {
+    background-color: @primary;
+    opacity: 0.8;
+}
+
+.chip-selected {
+    background-color: @primary;
+    border-color: @primary;
+}
+
+.chip-text {
+    font-size: 12px;
+    color: @on-neutral;
+}
+
+.partition-chip.chip-selected .chip-text {
+    color: @on-primary;
+    font-weight: bold;
+}
+
+/* 进度 */
+.progress-text {
+    font-size: 13px;
+    color: @on-primary;
+    padding: 8px 12px;
+    background-color: @primary;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.flash-warning {
+    color: @on-danger;
+    background-color: @danger;
+}
+
+/* 镜像列表 */
+.image-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    background-color: @surface;
+    border-radius: 8px;
+    border: 1px solid #333;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.image-item:active {
+    background-color: @primary;
+}
+
+.image-selected {
+    background-color: @primary;
+    border-color: @primary;
+}
+
+.image-name {
+    font-size: 13px;
+    color: @on-neutral;
+    font-weight: bold;
+}
+
+.image-selected .image-name {
+    color: @on-primary;
+}
+
+.image-meta {
+    font-size: 11px;
+    color: @outline;
+}
+
+.image-type {
+    font-size: 11px;
+    color: @outline;
+}
+
+.empty-text {
+    font-size: 12px;
+    color: @outline;
+    text-align: center;
+    padding: 12px;
+}
+
+/* 系统工具 */
+.tool-grid {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.tool-btn {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background-color: @surface;
+    border-radius: 10px;
+    border: 1px solid #333;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.tool-btn:active {
+    background-color: @primary;
+    opacity: 0.8;
+}
+
+.tool-running {
+    opacity: 0.5;
+    background-color: #222;
+}
+
+.tool-icon {
+    font-size: 20px;
+    color: @on-primary;
+    font-weight: bold;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+
+.tool-label {
+    font-size: 12px;
+    color: @on-neutral;
+}
+
+/* 使用说明 */
+.instruction-text {
+    font-size: 12px;
+    color: @outline;
+    line-height: 18px;
+    white-space: pre-line;
+    padding: 10px;
+    background-color: @surface;
+    border-radius: 8px;
+}

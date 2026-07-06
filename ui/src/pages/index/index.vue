@@ -22,6 +22,7 @@
         <div class="section">
             <text class="section-title">可用功能</text>
             
+            <div class="item"><text class="item-text" @click="Backup">备份/刷机</text></div>
             <div class="item"><text class="item-text" @click="Store">软件商店</text></div>
             <div class="item"><text class="item-text" @click="PenTerm">PenTerm</text></div>
             <div class="item"><text class="item-text" @click="Deviceinfo">设备信息</text></div>
