@@ -15,40 +15,28 @@
 // You should have received a copy of the GNU General Public License
 // along with miniapp.  If not, see <https://www.gnu.org/licenses/>.
 
-import { showInfo } from '../components/ToastMessage';
-import { showLoading, hideLoading } from '../components/Loading';
-
-declare function require(name: string): any;
+import globalMod from 'global';
 
 let gm: any = null;
-let tried = false;
 
 function getGM(): any {
     if (gm) return gm;
-    if (tried) return null;
-    tried = true;
 
-    // 1) require('global') 直接返回的可能是实例本身
+    // 通过 ES module import 加载的 global 模块 (QuickJS CModuleLoader)
     try {
-        const m = require('global');
-        if (m && typeof m.startTextEdit === 'function') { gm = m; return gm; }
-        if (m) {
-            const G = m.Global || m.default?.Global || m.default;
-            if (G && typeof G === 'function') { gm = new G(); if (gm && typeof gm.startTextEdit === 'function') return gm; }
+        if (globalMod && typeof globalMod.Global === 'function') {
+            gm = new globalMod.Global();
+            if (gm && typeof gm.startTextEdit === 'function') return gm;
         }
     } catch (_) {}
 
-    // 2) globalThis 上的 Global 构造函数
+    // 备用: globalThis 可能直接暴露 Global 构造函数
     try {
         const G = (globalThis as any).Global;
-        if (G && typeof G === 'function') { gm = new G(); if (gm && typeof gm.startTextEdit === 'function') return gm; }
-    } catch (_) {}
-
-    // 3) LoliAPP 的 bridge.NativeSDK
-    try {
-        const b = require('bridge') || (globalThis as any).bridge;
-        if (b && b.NativeSDK && typeof b.NativeSDK.startTextEdit === 'function') { gm = b.NativeSDK; return gm; }
-        if (b && typeof b.startTextEdit === 'function') { gm = b; return gm; }
+        if (G && typeof G === 'function') {
+            gm = new G();
+            if (gm && typeof gm.startTextEdit === 'function') return gm;
+        }
     } catch (_) {}
 
     return null;
@@ -59,10 +47,7 @@ export function promptSystemKeyboard(
     set: (value: string) => void
 ) {
     const inst = getGM();
-    if (!inst || typeof inst.startTextEdit !== 'function') {
-        showInfo('系统键盘模块未找到，请检查设备固件版本');
-        return;
-    }
+    if (!inst || typeof inst.startTextEdit !== 'function') return;
 
     const currentText = get();
     const uuid = inst.startTextEdit(JSON.stringify({
@@ -81,12 +66,7 @@ export function promptSystemKeyboard(
         enterButtonText: '确认'
     }));
 
-    if (typeof uuid !== 'string' || uuid.length === 0) {
-        showInfo('系统键盘启动失败');
-        return;
-    }
-
-    showLoading('输入中...');
+    if (typeof uuid !== 'string' || uuid.length === 0) return;
 
     const handler = (retUuid: string, jsonData: string) => {
         if (retUuid !== uuid) return;
@@ -97,17 +77,10 @@ export function promptSystemKeyboard(
                 setTimeout(() => {
                     try { if (inst.closeTextEdit) inst.closeTextEdit(uuid); } catch (_) {}
                 }, 0);
-                hideLoading();
                 set(result.text || '');
             }
-        } catch (_) {
-            hideLoading();
-        }
+        } catch (_) {}
     };
 
-    if (inst.textEditFinished) {
-        inst.textEditFinished.on(handler);
-    } else {
-        showInfo('textEditFinished 事件不可用');
-    }
+    if (inst.textEditFinished) inst.textEditFinished.on(handler);
 }
